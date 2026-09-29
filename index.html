@@ -102,13 +102,21 @@
     JavaScript callbacks required by the game.
 -->
 <script>
-window.gmEvent = function () {
-    console.log("gmEvent:", ...arguments);
-};
+function gmEvent() {
+    console.log("gmEvent:", arguments);
+}
 
-window.firebaseLogEvent = function () {
-    console.log("firebaseLogEvent:", ...arguments);
-};
+function firebaseLogEvent() {
+    console.log("firebaseLogEvent:", arguments);
+}
+
+function firebaseLogEventParameter() {
+    console.log("firebaseLogEventParameter:", arguments);
+}
+
+window.gmEvent = gmEvent;
+window.firebaseLogEvent = firebaseLogEvent;
+window.firebaseLogEventParameter = firebaseLogEventParameter;
 </script>
 
 

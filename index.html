@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Escape Road 3</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #gameContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: #000;
+        }
+
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        #loadingCover {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        #loadingText {
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        #loadingBar {
+            width: 300px;
+            max-width: 70%;
+            height: 8px;
+            background: #222;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #loadingBarFill {
+            width: 0%;
+            height: 100%;
+            background: #fff;
+            transition: width .15s linear;
+        }
+
+        #errorText {
+            display: none;
+            color: #ff5555;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 80%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="gameContainer">
+
+    <div id="loadingCover">
+        <div id="loadingText">Loading Escape Road 3...</div>
+
+        <div id="loadingBar">
+            <div id="loadingBarFill"></div>
+        </div>
+
+        <div id="errorText"></div>
+    </div>
+
+    <canvas id="unity-canvas"
+            tabindex="-1">
+    </canvas>
+
+</div>
+
+
+<!--
+    The game build calls gmEvent from its JavaScript/WebGL code.
+    The original wrapper provided this function, so we provide
+    a safe version here.
+-->
+<script>
+window.gmEvent = function () {
+    console.log("gmEvent:", ...arguments);
+};
+</script>
+
+
+<script>
+(function () {
+
+    const buildUrl = "Build";
+
+    const loaderUrl =
+        buildUrl + "/escape-road-3-v26051406.loader.js";
+
+    const config = {
+
+        dataUrl:
+            buildUrl +
+            "/escape-road-3-v26051406.data.unityweb",
+
+        frameworkUrl:
+            buildUrl +
+            "/escape-road-3-v26051406.framework.js.unityweb",
+
+        codeUrl:
+            buildUrl +
+            "/escape-road-3-v26051406.wasm.unityweb",
+
+        streamingAssetsUrl:
+            "StreamingAssets",
+
+        companyName:
+            "ozgames.io",
+
+        productName:
+            "Escape Road 3",
+
+        productVersion:
+            "26051406",
+
+        // Keep game analytics/event logging disabled.
+        eventLog:
+            false
+    };
+
+
+    const canvas =
+        document.getElementById("unity-canvas");
+
+    const loadingCover =
+        document.getElementById("loadingCover");
+
+    const loadingText =
+        document.getElementById("loadingText");
+
+    const loadingBar =
+        document.getElementById("loadingBar");
+
+    const loadingBarFill =
+        document.getElementById("loadingBarFill");
+
+    const errorText =
+        document.getElementById("errorText");
+
+
+    function showError(message) {
+
+        console.error(message);
+
+        loadingText.textContent =
+            "Game failed to load";
+
+        loadingBar.style.display =
+            "none";
+
+        errorText.style.display =
+            "block";
+
+        errorText.textContent =
+            String(message);
+    }
+
+
+    /*
+     * Load Unity's loader.
+     */
+    const script =
+        document.createElement("script");
+
+    script.src =
+        loaderUrl;
+
+    script.onload = function () {
+
+        if (typeof createUnityInstance !== "function") {
+
+            showError(
+                "Unity loader loaded, but createUnityInstance was not found."
+            );
+
+            return;
+        }
+
+
+        createUnityInstance(
+            canvas,
+            config,
+            function (progress) {
+
+                const percent =
+                    Math.round(progress * 100);
+
+                loadingBarFill.style.width =
+                    percent + "%";
+
+                loadingText.textContent =
+                    "Loading Escape Road 3... " +
+                    percent +
+                    "%";
+
+            }
+        )
+        .then(function (unityInstance) {
+
+            window.unityInstance =
+                unityInstance;
+
+            console.log(
+                "Escape Road 3 Unity instance started."
+            );
+
+            setTimeout(function () {
+
+                loadingCover.style.display =
+                    "none";
+
+                window.focus();
+
+            }, 1000);
+
+        })
+        .catch(function (message) {
+
+            showError(
+                "Unity failed to start:\n\n" +
+                message
+            );
+
+        });
+
+    };
+
+
+    script.onerror = function () {
+
+        showError(
+            "Could not load the Unity loader:\n\n" +
+            loaderUrl
+        );
+
+    };
+
+
+    document.body.appendChild(script);
+
+})();
+</script>
+
+</body>
+</html>

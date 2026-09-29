@@ -93,21 +93,21 @@
         <div id="errorText"></div>
     </div>
 
-    <canvas id="unity-canvas"
-            tabindex="-1">
-    </canvas>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
 
 </div>
 
 
 <!--
-    The game build calls gmEvent from its JavaScript/WebGL code.
-    The original wrapper provided this function, so we provide
-    a safe version here.
+    JavaScript callbacks required by the game.
 -->
 <script>
 window.gmEvent = function () {
     console.log("gmEvent:", ...arguments);
+};
+
+window.firebaseLogEvent = function () {
+    console.log("firebaseLogEvent:", ...arguments);
 };
 </script>
 
@@ -146,7 +146,6 @@ window.gmEvent = function () {
         productVersion:
             "26051406",
 
-        // Keep game analytics/event logging disabled.
         eventLog:
             false
     };
@@ -189,9 +188,6 @@ window.gmEvent = function () {
     }
 
 
-    /*
-     * Load Unity's loader.
-     */
     const script =
         document.createElement("script");
 

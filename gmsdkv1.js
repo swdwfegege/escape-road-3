@@ -1,4 +1,4 @@
-let url_request = "https://games.yoplay.io/sdk/gmadsv1";
+let url_request = "https://swdwfegege.github.io/escape-road-3/";
 window.GMSOFT_OPTIONS = config;
 _0x170291(url_request);
 async function _0x170291(_0x4298b0) {

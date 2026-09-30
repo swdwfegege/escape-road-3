@@ -12,7 +12,7 @@ async function _0x170291(_0x4298b0) {
     let _0x1fa9cd = _0x4298b0 + "?params=" + _0xbb8a7;
     console.log("verify_license_url");
     console.log(_0x1fa9cd);
-    let _0x3f74db = httpGet(_0x1fa9cd);
+    //let _0x3f74db = httpGet(_0x1fa9cd);
     let _0x553545 = JSON.parse(_0x3f74db);
     let _0x5dc78c = _0x553545.regisinfo || {};
     if (_0x5dc78c.signed) {

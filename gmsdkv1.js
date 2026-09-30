@@ -2,7 +2,7 @@ let url_request = "https://games.yoplay.io/sdk/gmadsv1";
 window.GMSOFT_OPTIONS = config;
 _0x170291(url_request);
 async function _0x170291(_0x4298b0) {
-  let _0x4263ee = "games.ofree.io";
+  let _0x4263ee = "https://swdwfegege.github.io/escape-road-3/";
   let _0xc5106c = window.GMSOFT_OPTIONS?.gameId || "";
   let _0x2f90ae = "no";
   try {

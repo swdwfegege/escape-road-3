@@ -128,38 +128,39 @@ window.firebaseLogEventParameter = firebaseLogEventParameter;
     const loaderUrl =
         buildUrl + "/escape-road-3-v26051406.loader.js";
 
-const config = {
 
-    dataUrl:
-        buildUrl +
-        "/escape-road-3-v26051406.data.unityweb",
+    const config = {
 
-    frameworkUrl:
-        buildUrl +
-        "/escape-road-3-v26051406.framework.js.unityweb",
+        dataUrl:
+            buildUrl +
+            "/escape-road-3-v26051406.data.unityweb",
 
-    codeUrl:
-        buildUrl +
-        "/escape-road-3-v26051406.wasm.unityweb",
+        frameworkUrl:
+            buildUrl +
+            "/escape-road-3-v26051406.framework.js.unityweb",
 
-    streamingAssetsUrl:
-        "StreamingAssets",
+        codeUrl:
+            buildUrl +
+            "/escape-road-3-v26051406.wasm.unityweb",
 
-    companyName:
-        "ozgames.io",
+        streamingAssetsUrl:
+            "StreamingAssets",
 
-    productName:
-        "Escape Road 3",
+        companyName:
+            "ozgames.io",
 
-    productVersion:
-        "26051406",
+        productName:
+            "Escape Road 3",
 
-    gameId:
-        "escape-road-3",
+        productVersion:
+            "26051406",
 
-    eventLog:
-        false
-};
+        gameId:
+            "escape-road-3",
+
+        eventLog:
+            false
+    };
 
 
     const canvas =
@@ -205,6 +206,7 @@ const config = {
     script.src =
         loaderUrl;
 
+
     script.onload = function () {
 
         if (typeof createUnityInstance !== "function") {
@@ -215,6 +217,27 @@ const config = {
 
             return;
         }
+
+
+        /*
+         * GMSDK bootstrap configuration.
+         *
+         * This tells the Unity runtime which GMSDK
+         * integration type is being used.
+         */
+        window.GMSOFT_SDKTYPE = "gm";
+
+
+        console.log(
+            "GMSDK type:",
+            window.GMSOFT_SDKTYPE
+        );
+
+
+        console.log(
+            "GMSDK domain config:",
+            localStorage.getItem("gmsdksigndomain")
+        );
 
 
         createUnityInstance(
@@ -243,6 +266,7 @@ const config = {
             console.log(
                 "Escape Road 3 Unity instance started."
             );
+
 
             setTimeout(function () {
 
